@@ -12,20 +12,25 @@ import Skeleton from "./components/pizzaBlock/Skeleton";
 import "./scss/app.scss";
 import { Route, Routes } from "react-router-dom";
 
+export const SearchContext = React.createContext();
+// console.log('search', SearchContext)
+
 function App() {
-const [searchValue, setSearchValue] = React.useState('')
-console.log('app', searchValue)
+  const [searchValue, setSearchValue] = React.useState("");
+  console.log("app", searchValue);
 
   return (
     <div className="wrapper">
-      <Header searchValue={searchValue} setSearchValue={setSearchValue}/>
-      <div className="content">
-        <Routes>
-          <Route path="/" element={<Home searchValue={searchValue} />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<NotFaund />} />
-        </Routes>
-      </div>
+      <SearchContext.Provider value={{searchValue, setSearchValue}}>
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home  />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFaund />} />
+          </Routes>
+        </div>
+      </SearchContext.Provider>
     </div>
   );
 }

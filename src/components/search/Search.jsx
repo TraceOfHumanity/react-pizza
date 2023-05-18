@@ -3,8 +3,10 @@ import styles from "./Search.module.scss";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
+import { SearchContext } from "../../App";
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = () => {
+  const {searchValue,setSearchValue} = React.useContext(SearchContext)
   return (
     <div className={styles.root}>
       <input
