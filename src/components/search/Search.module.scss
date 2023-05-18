@@ -4,7 +4,7 @@
 
 .input {
   border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 12px 20px;
+  padding: 12px 20px 12px 40px;
   width: 300px;
   font-size: 16px;
   border-radius: 10px;
@@ -20,6 +20,18 @@
 }
 .icon{
     cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+.clearIcon{
+   cursor: pointer;
     font-size: 30px;
     position: absolute;
     right: 10px;
