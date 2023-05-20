@@ -1,26 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  count: 0,
-}
-
-export const counterSlice = createSlice({
-  name: 'counter',
+  categoryId: 0,
+  curentPage: 1,
+  sort: {
+    name: "популярності",
+    sortProperty: "rating",
+  },
+};
+const filterSlice = createSlice({
+  name: "filters",
   initialState,
   reducers: {
-    increment: (state) => {
-     
-      state.count += 1
+    setCategoryId(state, action) {
+      state.categoryId = action.payload;
     },
-    decrement: (state) => {
-      state.count -= 1
+    setSort(state, action) {
+      state.sort = action.payload;
     },
-    incrementByAmount: (state, action) => {
-      state.count += action.payload
+    setCurentPage(state, action) {
+      state.curentPage = action.payload;
     },
   },
-})
+});
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { setCategoryId, setSort, setCurentPage } = filterSlice.actions;
 
-export default counterSlice.reducer
+export default filterSlice.reducer;
