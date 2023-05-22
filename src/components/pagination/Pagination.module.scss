@@ -1,0 +1,33 @@
+.pagination {
+  li {
+    display: inline-block;
+    a {
+      display: inline-block;
+      color: green;
+      margin-left: 10px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid green;
+      cursor: pointer;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+      &:hover {
+        background-color: green;
+        color: white;
+      }
+    }
+  }
+  :global {
+    .selected {
+      a {
+        background-color: green;
+        color: white;
+      }
+    }
+  }
+}
