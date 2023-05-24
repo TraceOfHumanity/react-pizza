@@ -22,13 +22,21 @@ const Sort = () => {
     dispatch(setSort(obj));
     setOpen(false);
   };
-  // React.useEffect(() => {
-  //   document.body.addEventListener("click", (event) => {
-  //     if (!event.path.include(sortRef.current)) {
-  //       setOpen(false);
-  //     }
-  //   });
-  // }, []);
+
+  const handleClickOutside = (event) => {
+    if (sortRef.current && !sortRef.current.contains(event.target)) {
+      setOpen(false);
+      console.log("click ");
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div ref={sortRef} className="sort">
