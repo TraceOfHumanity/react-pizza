@@ -8,6 +8,7 @@ import {
   setcurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
+import { setItems } from "../redux/slices/pizzaSlice";
 import { useNavigate } from "react-router-dom";
 
 import Categories from "../components/categories/Categories";
@@ -23,12 +24,13 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
+  const  items  = useSelector((state) => state.pizza.items);
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
 
   const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
+  // const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const onChangeCategory = (id) => {
@@ -44,22 +46,24 @@ const Home = () => {
     dispatch(setcurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     const sortBy = sort.sortProperty.replace("-", "");
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
+    try {
+      const { data } = await axios.get(
         `https://64579cb40c15cb14820ca98f.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      dispatch(setItems(data));
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  
+
   React.useEffect(() => {
     if (!isSearch.current) {
       fetchPizzas();
@@ -77,7 +81,7 @@ const Home = () => {
       });
       navigate(`?${queryString}`);
     }
-    isMounted.current = true
+    isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
   let pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
@@ -97,8 +101,6 @@ const Home = () => {
       isSearch.current = true;
     }
   }, []);
-
-
 
   return (
     <>
