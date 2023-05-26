@@ -25,15 +25,12 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
 
-  const { searchValue } = React.useContext(SearchContext);
-  // const [isLoading, setIsLoading] = React.useState(true);
 
   const onChangeCategory = (id) => {
-    console.log(id);
     dispatch(setCategoryId(id));
   };
 

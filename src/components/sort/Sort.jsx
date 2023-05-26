@@ -26,7 +26,6 @@ const Sort = () => {
   const handleClickOutside = (event) => {
     if (sortRef.current && !sortRef.current.contains(event.target)) {
       setOpen(false);
-      console.log("click ");
     }
   };
 
